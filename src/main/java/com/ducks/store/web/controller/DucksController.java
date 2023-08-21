@@ -30,12 +30,16 @@ public class DucksController {
 
     @GetMapping("getPackageType")
     public ResponseEntity<Map<String, Object>> packingType(@RequestParam DuckSize duckSize,
-                                                        @RequestParam ShippingType shippingType) {
+                                                           @RequestParam ShippingType shippingType,
+                                                           @RequestParam int amount,
+                                                           @RequestParam double price) {
         PackageType packageType = getPackageTypeBySize(duckSize);
         factoryService.getPackingTypeStrategy(packageType).ProcessPackaging();
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("PackageType", factoryService.getPackingTypeStrategy(packageType).getPackageType());
         responseMap.put("Protection", shippingFactoryService.getShippingStrategy(shippingType).getProtectionFiller(packageType));
+        responseMap.put("Total", factoryService.getPackingTypeStrategy(packageType).getTotal(amount, price));
+        responseMap.put("Detalles", factoryService.getPackingTypeStrategy(packageType).getDetails());
 
 
         return ResponseEntity.ok(responseMap);
