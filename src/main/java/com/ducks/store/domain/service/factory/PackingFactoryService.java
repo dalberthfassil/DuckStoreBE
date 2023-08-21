@@ -14,19 +14,19 @@ public class PackingFactoryService {
     Map<PackageType, PackagingStrategy> map;
 
     @Autowired
-    public PackingFactoryService(Set<PackagingStrategy> packagingStrategySet){
+    public PackingFactoryService(Set<PackagingStrategy> packagingStrategySet) {
         createStrategy(packagingStrategySet);
-     }
-    private void createStrategy(Set<PackagingStrategy> packagingStrategySet)
-    {
-        map = new HashMap<PackageType,PackagingStrategy>();
-        packagingStrategySet.stream().forEach(packagingStrategy ->
-                map.put(packagingStrategy.getPackageType(),packagingStrategy));
     }
 
-    public PackagingStrategy getPackingTypeStrategy (PackageType packageType){
+    private void createStrategy(Set<PackagingStrategy> packagingStrategySet) {
+        map = new HashMap<PackageType, PackagingStrategy>();
+        packagingStrategySet.stream().forEach(packagingStrategy ->
+                map.put(packagingStrategy.getPackageType(), packagingStrategy));
+    }
+
+    public PackagingStrategy getPackingTypeStrategy(PackageType packageType) {
         return map.get(packageType);
-     }
+    }
 
 
 }

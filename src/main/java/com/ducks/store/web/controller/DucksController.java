@@ -14,21 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class DucksController {
     @Autowired
     PackingFactoryService factoryService;
+
     @Autowired
-    public DucksController(){
+    public DucksController() {
 
     }
 
     @GetMapping("getPackageType")
-    public PackageType  duckList(@RequestParam DuckSize duckSize){
-        PackageType packageType = null;
-        if(duckSize == DuckSize.LARGE || duckSize == DuckSize.XLARGE) packageType = PackageType.WOOD;
-        if(duckSize == DuckSize.MEDIUM) packageType = PackageType.CARDBOARD;
-        if(duckSize == DuckSize.SMALL || duckSize == DuckSize.XSMALL) packageType = PackageType.PLASTIC;
+    public PackageType duckList(@RequestParam DuckSize duckSize) {
+        PackageType packageType = getPackageTypeBySize(duckSize);
+        factoryService.getPackingTypeStrategy(packageType).ProcessPackaging();
+        return factoryService.getPackingTypeStrategy(packageType).getPackageType();
 
-        factoryService.getPackingTypeStrategy(packageType).ProcessPackaing();
-       return factoryService.getPackingTypeStrategy(packageType).getPackageType();
+    }
 
-
+    private PackageType getPackageTypeBySize(DuckSize duckSize) {
+        if (duckSize == DuckSize.LARGE || duckSize == DuckSize.XLARGE) return PackageType.WOOD;
+        if (duckSize == DuckSize.MEDIUM) return PackageType.CARDBOARD;
+        if (duckSize == DuckSize.SMALL || duckSize == DuckSize.XSMALL) return PackageType.PLASTIC;
+        throw new IllegalArgumentException("there is no exist a package type for this duck size");
     }
 }

@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class CardBoardPackagingStrategy  implements PackagingStrategy {
+public class CardBoardPackagingStrategy implements PackagingStrategy {
 
 
     @Override
-    public void ProcessPackaing() {
+    public void ProcessPackaging() {
         System.out.println("using Plastic proteccion");
     }
 

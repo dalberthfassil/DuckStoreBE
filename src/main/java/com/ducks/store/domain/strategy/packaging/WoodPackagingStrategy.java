@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class WoodPackagingStrategy implements PackagingStrategy {
     @Override
-    public void ProcessPackaing() {
+    public void ProcessPackaging() {
         System.out.println("using wood");
     }
 
