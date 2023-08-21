@@ -38,8 +38,8 @@ public class DucksController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("PackageType", factoryService.getPackingTypeStrategy(packageType).getPackageType());
         responseMap.put("Protection", shippingFactoryService.getShippingStrategy(shippingType).getProtectionFiller(packageType));
-        responseMap.put("Total", factoryService.getPackingTypeStrategy(packageType).getTotal(amount, price));
-        responseMap.put("Detalles", factoryService.getPackingTypeStrategy(packageType).getDetails());
+        responseMap.put("Total", factoryService.getTotal(packageType,amount, price));
+        responseMap.put("Detalles", factoryService.getDetails(packageType,amount));
 
 
         return ResponseEntity.ok(responseMap);
