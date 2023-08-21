@@ -28,5 +28,4 @@ public class PackingFactoryService {
         return map.get(packageType);
     }
 
-
 }

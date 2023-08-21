@@ -1,19 +1,29 @@
 package com.ducks.store.web.controller;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import com.ducks.store.domain.enums.DuckSize;
 import com.ducks.store.domain.enums.PackageType;
+import com.ducks.store.domain.enums.ShippingType;
 import com.ducks.store.domain.service.factory.PackingFactoryService;
+import com.ducks.store.domain.service.factory.ShippingFactoryService;
+import com.ducks.store.domain.strategy.shipping.AirShippingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/ducks")
 public class DucksController {
     @Autowired
     PackingFactoryService factoryService;
+    @Autowired
+    ShippingFactoryService shippingFactoryService;
 
     @Autowired
     public DucksController() {
@@ -21,10 +31,18 @@ public class DucksController {
     }
 
     @GetMapping("getPackageType")
-    public PackageType duckList(@RequestParam DuckSize duckSize) {
+    public ResponseEntity<Map<String, Object>> duckList(@RequestParam DuckSize duckSize,
+                                @RequestParam  ShippingType shippingType) {
         PackageType packageType = getPackageTypeBySize(duckSize);
         factoryService.getPackingTypeStrategy(packageType).ProcessPackaging();
-        return factoryService.getPackingTypeStrategy(packageType).getPackageType();
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("PackageType",factoryService.getPackingTypeStrategy(packageType).getPackageType());
+        responseMap.put("Protection",shippingFactoryService.getShippingStrategy(shippingType).getPackageFiller(packageType));
+
+
+        return ResponseEntity.ok(responseMap);
+
+
 
     }
 
