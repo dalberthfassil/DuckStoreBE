@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,8 +39,17 @@ public class DucksController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("PackageType", factoryService.getPackingTypeStrategy(packageType).getPackageType());
         responseMap.put("Protection", shippingFactoryService.getShippingStrategy(shippingType).getProtectionFiller(packageType));
-        responseMap.put("Total", factoryService.getTotal(packageType,amount, price));
-        responseMap.put("Detalles", factoryService.getDetails(packageType,amount));
+
+        double total= factoryService.getTotal(packageType,amount, price);
+        total=total + shippingFactoryService.getShippingStrategy(shippingType).getTaxes(amount);
+
+        List<String> details = factoryService.getDetails(packageType,amount);
+        details.addAll(shippingFactoryService.getShippingStrategy(shippingType).getDetails(amount));
+
+        responseMap.put("Detalle", details);
+        responseMap.put("Total", total);
+
+
 
 
         return ResponseEntity.ok(responseMap);
@@ -53,4 +63,6 @@ public class DucksController {
         if (duckSize == DuckSize.SMALL || duckSize == DuckSize.XSMALL) return PackageType.PLASTIC;
         throw new IllegalArgumentException("there is no exist a package type for this duck size");
     }
+
+
 }

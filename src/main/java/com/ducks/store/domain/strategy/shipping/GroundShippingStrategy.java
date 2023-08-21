@@ -28,4 +28,16 @@ public class GroundShippingStrategy implements ShippingStrategy {
     public ShippingType getShippingType() {
         return ShippingType.TIERRA;
     }
+
+    @Override
+    public double getTaxes(int amount) {
+        return amount*10;
+    }
+
+    @Override
+    public List<String> getDetails(int amount) {
+        List<String> details = new ArrayList<>();
+        details.add("agregado 10 USD * candidad - envio por tierra");
+        return details;
+    }
 }

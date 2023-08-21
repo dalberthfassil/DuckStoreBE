@@ -9,8 +9,8 @@ import java.util.List;
 public interface ShippingStrategy {
 
     public void ProcessShipping();
-
     public List<ProtectionType> getProtectionFiller(PackageType packageType);
-
     public ShippingType getShippingType();
+    public double getTaxes(int amount);
+    public List<String> getDetails(int amount);
 }

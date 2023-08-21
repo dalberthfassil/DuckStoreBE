@@ -8,8 +8,5 @@ public interface PackagingStrategy {
      public void ProcessPackaging();
     public double getTotal(int amount, double price);
     public List<String> getDetails();
-
-
-
     public PackageType getPackageType();
 }

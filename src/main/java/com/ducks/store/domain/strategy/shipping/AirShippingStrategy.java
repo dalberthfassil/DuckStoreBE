@@ -16,6 +16,7 @@ public class AirShippingStrategy implements ShippingStrategy {
         System.out.println("using air strategy");
     }
 
+
     @Override
     public List<ProtectionType> getProtectionFiller(PackageType packageType) {
         List<ProtectionType> filler = new ArrayList<>();
@@ -31,5 +32,24 @@ public class AirShippingStrategy implements ShippingStrategy {
     @Override
     public ShippingType getShippingType() {
         return ShippingType.AIRE;
+    }
+
+    @Override
+    public double getTaxes(int amount) {
+        double taxes=amount*30;
+        if(amount>1000){
+            taxes=taxes-(taxes*0.15);
+        }
+        return  taxes;
+    }
+
+    @Override
+    public List<String> getDetails(int amount) {
+        List<String> details = new ArrayList<>();
+        details.add( "agregado 30 USD * cantidad - envio por avion");
+        if(amount>1000){
+            details.add("descuento 15% por cantidad mayor a 1000 Unidades");
+        }
+        return details;
     }
 }

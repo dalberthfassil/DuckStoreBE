@@ -28,4 +28,16 @@ public class SeaShippingStrategy implements ShippingStrategy {
     public ShippingType getShippingType() {
         return ShippingType.MAR;
     }
+
+    @Override
+    public double getTaxes(int amount) {
+        return 400;
+    }
+
+    @Override
+    public List<String> getDetails(int amount) {
+        List<String> details = new ArrayList<>();
+        details.add( "agregado 400 USD - envio por mar");
+        return details;
+    }
 }
