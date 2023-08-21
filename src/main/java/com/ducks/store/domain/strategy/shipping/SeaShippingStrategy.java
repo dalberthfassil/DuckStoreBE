@@ -1,8 +1,8 @@
 package com.ducks.store.domain.strategy.shipping;
 
 import com.ducks.store.domain.enums.PackageType;
+import com.ducks.store.domain.enums.ProtectionType;
 import com.ducks.store.domain.enums.ShippingType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ public class SeaShippingStrategy implements ShippingStrategy {
     }
 
     @Override
-    public List<String> getPackageFiller(PackageType packageType) {
-        List<String> filler = new ArrayList<>();
-        filler.add("Bolitas absorventes de humedad");
-        filler.add("Bolsas con burbuja");
+    public List<ProtectionType> getProtectionFiller(PackageType packageType) {
+        List<ProtectionType> filler = new ArrayList<>();
+        filler.add(ProtectionType.ABSORBENT_BALLS);
+        filler.add(ProtectionType.BUBBLE_BAG);
         return filler;
     }
 

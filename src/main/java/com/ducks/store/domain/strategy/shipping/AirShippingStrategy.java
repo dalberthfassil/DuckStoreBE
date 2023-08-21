@@ -1,8 +1,8 @@
 package com.ducks.store.domain.strategy.shipping;
 
 import com.ducks.store.domain.enums.PackageType;
+import com.ducks.store.domain.enums.ProtectionType;
 import com.ducks.store.domain.enums.ShippingType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,13 +17,13 @@ public class AirShippingStrategy implements ShippingStrategy {
     }
 
     @Override
-    public List<String> getPackageFiller(PackageType packageType) {
-        List<String> filler = new ArrayList<>();
+    public List<ProtectionType> getProtectionFiller(PackageType packageType) {
+        List<ProtectionType> filler = new ArrayList<>();
         if (packageType.equals(PackageType.WOOD) || packageType.equals(PackageType.CARDBOARD)) {
-            filler.add("Bolitas de Plastoformo");
+            filler.add(ProtectionType.PLASTOFORM_BALLS);
         }
         if (packageType.equals(PackageType.PLASTIC)) {
-            filler.add("Bolsas con burbuja");
+            filler.add(ProtectionType.BUBBLE_BAG);
         }
         return filler;
     }
