@@ -5,6 +5,7 @@ import com.ducks.store.domain.enums.PackageType;
 import org.springframework.stereotype.Service;
 
 //@Service("woodPackagingStrategy")
+@Service
 public class WoodPackagingStrategy implements PackagingStrategy {
     @Override
     public void ProcessPackaing() {
@@ -15,11 +16,5 @@ public class WoodPackagingStrategy implements PackagingStrategy {
     public PackageType getPackageType() {
         return PackageType.WOOD;
     }
-/*    @Override
-    public String getPackageType(DuckSize size) {
-        if (size == DuckSize.XLARGE || size == DuckSize.LARGE) {
-            return "madera";
-        }
-        return null;
-    }*/
+
 }

@@ -16,15 +16,15 @@ public class PackingFactoryService {
     @Autowired
     public PackingFactoryService(Set<PackagingStrategy> packagingStrategySet){
         createStrategy(packagingStrategySet);
-    }
+     }
     private void createStrategy(Set<PackagingStrategy> packagingStrategySet)
     {
         map = new HashMap<PackageType,PackagingStrategy>();
-        packagingStrategySet.forEach(packagingStrategy ->
+        packagingStrategySet.stream().forEach(packagingStrategy ->
                 map.put(packagingStrategy.getPackageType(),packagingStrategy));
     }
 
-    public PackagingStrategy getPackingType(PackageType packageType){
+    public PackagingStrategy getPackingTypeStrategy (PackageType packageType){
         return map.get(packageType);
      }
 

@@ -5,14 +5,9 @@ import com.ducks.store.domain.enums.PackageType;
 import org.springframework.stereotype.Service;
 
 
+@Service
 public class CardBoardPackagingStrategy  implements PackagingStrategy {
-//    @Override
-//    public String getPackageType(DuckSize size) {
-//        if (size == DuckSize.MEDIUM) {
-//            return "plastico";
-//        }
-//        return null;
-//    }
+
 
     @Override
     public void ProcessPackaing() {
